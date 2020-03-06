@@ -23,3 +23,5 @@ pm2 startOrReload pm2.json
 
 * http://www.puppeteerjs.com/api-class-page.html
 * http://www.pianshen.com/article/7880283709/ 登陆验证
+
+db.createUser({user: "root",pwd: "12345678",roles: [ { role: "userAdminAnyDatabase", db: "admin" },{ role: "dbAdminAnyDatabase",db: "admin" }, { role: "readWriteAnyDatabase", db: "admin" }]})

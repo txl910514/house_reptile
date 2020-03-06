@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 module.exports = class extends think.Service {
     async render() {
+       console.log(1111); 
         const browser = await puppeteer.launch({
             headless: true,
             defaultViewport: null
