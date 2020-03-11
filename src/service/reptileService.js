@@ -31,6 +31,7 @@ module.exports = class extends think.Service {
                 id = await think.model('cuisine').addData(obj);
             }
             id = name._id;
+            console.log(id);
             await this.pageFood(browser, cuisineList[i].href, id, name.finish_page || 1);
         }
         await page.close();
@@ -67,21 +68,26 @@ module.exports = class extends think.Service {
                 user_name: pageList[i].user_name
             }
             let name = await think.model('food').findDetail(obj);
+            console.log(name);
             var id;
             if (!Object.keys(name).length) {
                 let newObj = JSON.parse(JSON.stringify(pageList[i]));
                 newObj.cuisine_id = cuisine_id;
                 delete newObj.href;
                 id = await think.model('food').addData(newObj);
+            } else {
+                if (!name.cuisine_id) {
+                    await think.model('food').updateData({_id: name._id}, {cuisine_id: cuisine_id}); 
+                }
             }
             id =  id ? id : name._id;
             await this.pageFoodDetail(browser, pageList[i].href, id, obj.name, obj.user_name);
-            await think.model('cuisine').updateData({_id: cuisine_id}, {finish_page: pageNum}); 
             if (i === pageList.length - 1 && nextPage) {
                 pageNum += 1;
                 await this.pageFood(browser, url, cuisine_id, pageNum++)
             }
         }
+        await think.model('cuisine').updateData({_id: cuisine_id}, {finish_page: pageNum}); 
         await page.close();
     }
     async pageFoodDetail(browser, url, food_id, name, user_name) {
