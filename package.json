@@ -11,7 +11,7 @@
     "lint-fix": "eslint --fix src/"
   },
   "dependencies": {
-    "puppeteer": "^1.12.2",
+    "puppeteer": "^1.13.0",
     "think-cache": "^1.0.0",
     "think-cache-file": "^1.0.8",
     "think-logger3": "^1.0.0",
